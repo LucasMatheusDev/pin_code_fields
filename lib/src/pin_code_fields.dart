@@ -661,15 +661,20 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
             Center(
               child: Padding(
                 padding: EdgeInsets.only(left: _textStyle.fontSize! / 1.5),
-                child: FadeTransition(
-                  opacity: _cursorAnimation,
-                  child: CustomPaint(
-                    size: Size(0, cursorHeight),
-                    painter: CursorPainter(
-                      cursorColor: cursorColor,
-                      cursorWidth: widget.cursorWidth,
-                    ),
-                  ),
+                child: AnimatedBuilder(
+                  animation: _cursorAnimation,
+                  builder: (context, child) {
+                    return Visibility(
+                      visible: _cursorAnimation.value.round() > 0.5,
+                      child: CustomPaint(
+                        size: Size(0, cursorHeight),
+                        painter: CursorPainter(
+                          cursorColor: cursorColor,
+                          cursorWidth: widget.cursorWidth,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -680,15 +685,20 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>
         );
       } else
         return Center(
-          child: FadeTransition(
-            opacity: _cursorAnimation,
-            child: CustomPaint(
-              size: Size(0, cursorHeight),
-              painter: CursorPainter(
-                cursorColor: cursorColor,
-                cursorWidth: widget.cursorWidth,
-              ),
-            ),
+          child: AnimatedBuilder(
+            animation: _cursorAnimation,
+            builder: (context, child) {
+              return Visibility(
+                visible: _cursorAnimation.value.round() > 0.5,
+                child: CustomPaint(
+                  size: Size(0, cursorHeight),
+                  painter: CursorPainter(
+                    cursorColor: cursorColor,
+                    cursorWidth: widget.cursorWidth,
+                  ),
+                ),
+              );
+            },
           ),
         );
     }
